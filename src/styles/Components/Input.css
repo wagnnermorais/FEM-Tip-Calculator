@@ -1,0 +1,18 @@
+.label {
+  color: hsl(var(--neutral-grayish-cyan));
+}
+
+.input {
+  display: flex;
+  margin: 0.5rem 0 0;
+  padding: 0.5rem 1rem;
+  width: 90%;
+  font-size: var(--input-fs);
+  text-align: end;
+}
+
+.input-icon {
+  position: absolute;
+  top: 4.275rem;
+  left: 1rem;
+}
