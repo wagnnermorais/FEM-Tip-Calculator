@@ -1,0 +1,16 @@
+.button {
+  padding: 1rem;
+  width: 80%;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  background: hsl(var(--primary-strong-cyan));
+  color: hsl(var(--neutral-very-dark-cyan));
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.button:hover {
+  background: hsl(var(--neutral-very-light-grayish-cyan));
+}
