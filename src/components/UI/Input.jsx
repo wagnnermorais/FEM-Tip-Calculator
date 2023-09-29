@@ -1,25 +1,16 @@
 import "../../styles/Components/Input.css";
-import { useState } from "react";
 
-const Input = ({ title, type, name, placeholder, icon, alt, max, handler }) => {
-  const [inputValue, setInputValue] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-
-    const numericValue = value.replace(/[^0-9.]/g, "");
-
-    setInputValue(numericValue);
-
-    if (value !== numericValue) {
-      setErrorMessage(`${title} must have only numbers, ex: 1234.56`);
-    } else {
-      setErrorMessage("");
-    }
-
-    handler(value);
-  };
+const Input = ({
+  title,
+  type,
+  name,
+  placeholder,
+  icon,
+  alt,
+  max,
+  value,
+  onChange,
+}) => {
   return (
     <div>
       <label>
@@ -30,10 +21,9 @@ const Input = ({ title, type, name, placeholder, icon, alt, max, handler }) => {
           name={name}
           placeholder={placeholder}
           maxLength={max}
-          value={inputValue}
-          onChange={handleInputChange}
+          value={value}
+          onChange={onChange}
         />
-        {errorMessage && <p style={{ color: "red" }}> {errorMessage} </p>}
         <img className="input-icon" src={icon} alt={alt} />
       </label>
     </div>

@@ -1,12 +1,8 @@
 import "../../styles/Components/Button.css";
 
-const Button = ({ type, action, text }) => {
-  const handleAction = (event) => {
-    action(event);
-  };
-
+const Button = ({ type, onClick, text }) => {
   return (
-    <button className="button" onClick={handleAction} type={type}>
+    <button className="button" type={type} onClick={onClick}>
       {text}
     </button>
   );
