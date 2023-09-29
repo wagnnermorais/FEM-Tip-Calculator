@@ -14,3 +14,8 @@
   background: hsl(var(--primary-strong-cyan));
   color: hsl(var(--neutral-very-dark-cyan));
 }
+
+.tip-button:focus {
+  background: hsl(var(--primary-strong-cyan));
+  color: hsl(var(--neutral-very-dark-cyan));
+}

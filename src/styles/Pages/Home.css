@@ -1,11 +1,3 @@
-.home-main-title {
-  font-size: 2.575rem;
-  line-height: 0.75rem;
-  letter-spacing: 20px;
-  color: hsl(var(--neutral-very-dark-cyan));
-  text-align: center;
-}
-
 .container {
   display: flex;
   margin: 0 auto;
@@ -50,7 +42,7 @@
   transition: ease-out 0.25s;
 }
 
-.tip-input:focus-visible {
+.tip-input:focus {
   width: 7.825rem;
   padding: 1rem 1rem 1rem 0;
   text-align: end;
@@ -59,7 +51,7 @@
   color: hsl(var(--neutral-very-dark-cyan));
 }
 
-.tip-input:focus-visible::placeholder {
+.tip-input:focus::placeholder {
   color: hsl(var(--neutral-white));
 }
 

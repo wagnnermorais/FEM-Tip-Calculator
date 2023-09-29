@@ -16,3 +16,8 @@
   top: 4.275rem;
   left: 1rem;
 }
+
+.input:focus {
+  outline: 2px solid hsl(var(--primary-strong-cyan));
+  border: none;
+}
