@@ -1,9 +1,12 @@
-import "../styles/Pages/Home.css";
+import Logo from "../components/Logo";
 import Input from "../components/UI/Input";
 import TipButton from "../components/UI/TipButton";
 import Button from "../components/UI/Button";
-import { percentages } from "../data/percentages";
 import { useState, useEffect } from "react";
+import { percentages } from "../data/percentages";
+import { validInput } from "../utils/helper";
+import { calculate } from "../utils/helper";
+import "../styles/Pages/Home.css";
 
 const Home = () => {
   const [bill, setBill] = useState("");
@@ -11,42 +14,55 @@ const Home = () => {
   const [tipValue, setTipValue] = useState(0);
   const [totalValue, setTotalValue] = useState(0);
   const [selectedPercentage, setSelectedPercentage] = useState(0);
-
-  const handleBill = (value) => {
-    setBill(value);
-  };
-
-  const handlePeople = (value) => {
-    setPeople(value);
-  };
+  const [customTip, setCustomTip] = useState(0);
 
   const handleTipClick = (percentage) => {
     setSelectedPercentage(percentage);
   };
 
+  const handleCustomTip = (e) => {
+    const value = e.target.value;
+    setCustomTip(value);
+  };
+
+  const handleCleanForm = () => {
+    setBill("");
+    setPeople("");
+    setTipValue(0);
+    setTotalValue(0);
+    setSelectedPercentage(0);
+    setCustomTip(0);
+  };
+
   useEffect(() => {
     const billAmount = parseFloat(bill);
     const numberOfPeople = parseFloat(people);
+    const customTipValue = parseFloat(customTip);
 
     if (!isNaN(billAmount) && !isNaN(numberOfPeople) && numberOfPeople > 0) {
-      const total = billAmount / numberOfPeople;
-      const tipAmount = (total * selectedPercentage) / 100;
-      const totalAmount = total + tipAmount;
-
-      setTotalValue(totalAmount.toFixed(2));
-      setTipValue(tipAmount.toFixed(2));
-    } else {
-      setTipValue(0);
-      setTotalValue(0);
+      if (customTip) {
+        calculate(
+          billAmount,
+          numberOfPeople,
+          customTipValue,
+          setTotalValue,
+          setTipValue
+        );
+      } else {
+        calculate(
+          billAmount,
+          numberOfPeople,
+          selectedPercentage,
+          setTotalValue,
+          setTipValue
+        );
+      }
     }
-  }, [bill, people, selectedPercentage]);
+  }, [bill, people, selectedPercentage, customTip]);
 
   return (
     <div>
-      <div>
-        <p className="home-main-title">SPLI</p>
-        <p className="home-main-title">TTER</p>
-      </div>
+      <Logo source={"/logo.svg"} text={"Splitter Logo"} />
       <div className="container">
         <div className="bill-container">
           <div className="input-box">
@@ -56,7 +72,8 @@ const Home = () => {
               name={"bill"}
               placeholder={0}
               max={8}
-              handler={handleBill}
+              value={bill}
+              onChange={(e) => validInput(e, setBill)}
               icon={"/icon-dollar.svg"}
               alt={"Dollar Icon"}
             />
@@ -65,7 +82,7 @@ const Home = () => {
             <p>Select Tip %</p>
             <div className="tipButton-box">
               {percentages.map((percentage) => (
-                <div className="tip" key={percentage.id}>
+                <div key={percentage.id}>
                   <TipButton
                     type={"text"}
                     text={`${percentage.value}%`}
@@ -73,7 +90,12 @@ const Home = () => {
                   />
                 </div>
               ))}
-              <input type="text" placeholder="Custom" className="tip-input" />
+              <input
+                type="text"
+                placeholder="Custom"
+                className="tip-input"
+                onChange={handleCustomTip}
+              />
             </div>
           </div>
           <div className="input-box">
@@ -83,7 +105,8 @@ const Home = () => {
               name={"pplNumber"}
               placeholder={0}
               max={2}
-              handler={handlePeople}
+              value={people}
+              onChange={(e) => validInput(e, setPeople)}
               icon={"/icon-person.svg"}
               alt={"Dollar Icon"}
             />
@@ -96,7 +119,7 @@ const Home = () => {
               <span>/ person</span>
             </div>
             <div className="value-box">
-              <span className="value">{tipValue}</span>
+              <span className="value">{`$${tipValue}`}</span>
             </div>
           </div>
           <div className="total tip-box">
@@ -105,12 +128,11 @@ const Home = () => {
               <span>/ person</span>
             </div>
             <div className="value-box">
-              <span className="value">{totalValue}</span>
-              {/* <input type="text" value={totalValue} onChange={calc} /> */}
+              <span className="value">{`$${totalValue}`}</span>
             </div>
           </div>
           <div className="button-box">
-            <Button type={"button"} action={"lorem"} text={"reset"} />
+            <Button type={"button"} text={"reset"} onClick={handleCleanForm} />
           </div>
         </div>
       </div>
