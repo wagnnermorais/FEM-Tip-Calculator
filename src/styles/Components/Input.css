@@ -9,6 +9,7 @@
   width: 90%;
   font-size: var(--input-fs);
   text-align: end;
+  border: 2px solid black;
 }
 
 .input-icon {
@@ -19,5 +20,4 @@
 
 .input:focus {
   outline: 2px solid hsl(var(--primary-strong-cyan));
-  border: none;
 }
