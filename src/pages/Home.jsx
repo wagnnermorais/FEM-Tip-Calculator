@@ -2,10 +2,10 @@ import Logo from "../components/Logo";
 import Input from "../components/UI/Input";
 import TipButton from "../components/UI/TipButton";
 import Button from "../components/UI/Button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { percentages } from "../data/percentages";
 import { validInput } from "../utils/helper";
-import { calculate } from "../utils/helper";
+import useCalculateTip from "../hooks/useCalculateTip";
 import "../styles/Pages/Home.css";
 
 const Home = () => {
@@ -15,6 +15,7 @@ const Home = () => {
   const [totalValue, setTotalValue] = useState(0);
   const [selectedPercentage, setSelectedPercentage] = useState(0);
   const [customTip, setCustomTip] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleTipClick = (percentage) => {
     setSelectedPercentage(percentage);
@@ -25,6 +26,15 @@ const Home = () => {
     setCustomTip(value);
   };
 
+  useCalculateTip(
+    bill,
+    people,
+    selectedPercentage,
+    customTip,
+    setTipValue,
+    setTotalValue
+  );
+
   const handleCleanForm = () => {
     setBill("");
     setPeople("");
@@ -34,34 +44,8 @@ const Home = () => {
     setCustomTip(0);
   };
 
-  useEffect(() => {
-    const billAmount = parseFloat(bill);
-    const numberOfPeople = parseFloat(people);
-    const customTipValue = parseFloat(customTip);
-
-    if (!isNaN(billAmount) && !isNaN(numberOfPeople) && numberOfPeople > 0) {
-      if (customTip) {
-        calculate(
-          billAmount,
-          numberOfPeople,
-          customTipValue,
-          setTotalValue,
-          setTipValue
-        );
-      } else {
-        calculate(
-          billAmount,
-          numberOfPeople,
-          selectedPercentage,
-          setTotalValue,
-          setTipValue
-        );
-      }
-    }
-  }, [bill, people, selectedPercentage, customTip]);
-
   return (
-    <div>
+    <div className="app">
       <Logo source={"/logo.svg"} text={"Splitter Logo"} />
       <div className="container">
         <div className="bill-container">
@@ -73,10 +57,22 @@ const Home = () => {
               placeholder={0}
               max={8}
               value={bill}
-              onChange={(e) => validInput(e, setBill)}
+              onChange={(e) =>
+                validInput(
+                  e,
+                  setBill,
+                  setErrorMessage("Bill must have only numbers, ex: 123.45.")
+                )
+              }
               icon={"/icon-dollar.svg"}
               alt={"Dollar Icon"}
             />
+            {errorMessage && (
+              <p style={{ color: "red", margin: ".50rem 0 0 0" }}>
+                {" "}
+                {errorMessage}{" "}
+              </p>
+            )}
           </div>
           <div className="tip-percentage">
             <p>Select Tip %</p>
@@ -106,7 +102,9 @@ const Home = () => {
               placeholder={0}
               max={2}
               value={people}
-              onChange={(e) => validInput(e, setPeople)}
+              onChange={(e) =>
+                validInput(e, setPeople, setErrorMessage("Can't be zero."))
+              }
               icon={"/icon-person.svg"}
               alt={"Dollar Icon"}
             />
