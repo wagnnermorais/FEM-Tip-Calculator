@@ -1,3 +1,12 @@
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background: hsl(var(--neutral-light-grayish-cyan));
+}
+
 .container {
   display: flex;
   margin: 0 auto;
@@ -14,6 +23,7 @@
 .input-box {
   padding: 1rem 0;
   position: relative;
+  width: 100%;
 }
 
 .tip-percentage {
@@ -21,6 +31,7 @@
 }
 
 .tip-percentage p {
+  margin: 0 0 1rem;
   color: hsl(var(--neutral-grayish-cyan));
 }
 
@@ -33,7 +44,7 @@
 
 .tip-input {
   padding: 1rem 0;
-  width: 8.825rem;
+  width: 8.125rem;
   font-size: 1.252rem;
   text-align: center;
   border: none;
@@ -43,7 +54,6 @@
 }
 
 .tip-input:focus {
-  width: 7.825rem;
   padding: 1rem 1rem 1rem 0;
   text-align: end;
   outline: 2px solid hsl(var(--primary-strong-cyan));
@@ -72,7 +82,7 @@
   align-items: center;
   justify-content: space-between;
   margin: 3rem;
-  line-height: 0.5;
+  line-height: 1.5;
 }
 
 .tip-amount p,
@@ -98,4 +108,86 @@
   margin: 2rem 0;
   width: 100%;
   bottom: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+  .app {
+    display: block;
+    min-height: auto;
+  }
+
+  .container {
+    display: block;
+    padding: 1rem 2.25rem;
+    margin: 0 auto;
+    height: auto;
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .tip-percentage {
+    margin: 1rem 0;
+  }
+
+  .tipButton-box {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .tip-input {
+    padding: 1rem 0;
+    width: 8.825rem;
+    font-size: 1.252rem;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    background: hsl(var(--neutral-very-light-grayish-cyan));
+    transition: ease-out 0.25s;
+  }
+
+  .tip-input:focus {
+    width: 7.825rem;
+    padding: 1rem 1rem 1rem 0;
+    text-align: end;
+    outline: 2px solid hsl(var(--primary-strong-cyan));
+    background: hsl(var(--neutral-white));
+    color: hsl(var(--neutral-very-dark-cyan));
+  }
+
+  .tip-input:focus::placeholder {
+    color: hsl(var(--neutral-white));
+  }
+
+  .bill-container,
+  .tip-container {
+    width: 100%;
+  }
+
+  .tip-container {
+    margin: 2rem 0 0;
+  }
+
+  .tip-container {
+    padding: 3rem 0;
+  }
+
+  .tip-box {
+    margin: 1.5rem 1.5rem 2rem;
+  }
+
+  .tip-box:nth-child(2) {
+    margin-bottom: 3.75rem;
+  }
+
+  .value {
+    font-size: 2.35rem;
+  }
+
+  .button-box {
+    margin: 0;
+    width: 100%;
+    bottom: 1rem;
+  }
 }

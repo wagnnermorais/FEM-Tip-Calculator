@@ -14,3 +14,9 @@
 .button:hover {
   background: hsl(var(--neutral-very-light-grayish-cyan));
 }
+
+@media screen and (max-width: 600px) {
+  .button {
+    width: 85%;
+  }
+}
