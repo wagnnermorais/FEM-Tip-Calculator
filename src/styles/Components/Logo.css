@@ -1,8 +1,9 @@
 .logo {
   text-align: center;
   margin: 0 0 2rem;
+  padding: 2rem 0 0;
 }
 
 .logo img {
-  width: 10rem;
+  width: 7.125rem;
 }

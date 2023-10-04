@@ -3,13 +3,12 @@
 }
 
 .input {
-  display: flex;
   margin: 0.5rem 0 0;
   padding: 0.5rem 1rem;
-  width: 90%;
+  width: 100%;
   font-size: var(--input-fs);
   text-align: end;
-  border: 2px solid black;
+  border: 1px solid hsl(var(--primary-strong-cyan));
 }
 
 .input-icon {
