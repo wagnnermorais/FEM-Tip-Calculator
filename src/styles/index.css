@@ -13,15 +13,8 @@
 }
 
 * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: var(--main-ff);
-}
-
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  min-height: 100vh;
-  background: hsl(var(--neutral-light-grayish-cyan));
-  overflow: hidden;
 }
