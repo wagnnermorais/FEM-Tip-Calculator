@@ -14,16 +14,29 @@ const Home = () => {
   const [tipValue, setTipValue] = useState(0);
   const [totalValue, setTotalValue] = useState(0);
   const [selectedPercentage, setSelectedPercentage] = useState(0);
-  const [customTip, setCustomTip] = useState(0);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [customTip, setCustomTip] = useState("");
+  const [tipMode, setTipMode] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const handleBillChange = (e) => {
+    const error = validInput(e, setBill, "bill");
+    setErrors({ ...errors, bill: error });
+  };
+
+  const handlePeopleChange = (e) => {
+    const error = validInput(e, setPeople, "people");
+    setErrors({ ...errors, people: error });
+  };
 
   const handleTipClick = (percentage) => {
+    setTipMode("percentage");
     setSelectedPercentage(percentage);
   };
 
   const handleCustomTip = (e) => {
+    setTipMode("custom");
     const value = e.target.value;
-    setCustomTip(value);
+    setCustomTip(value || null);
   };
 
   useCalculateTip(
@@ -31,6 +44,7 @@ const Home = () => {
     people,
     selectedPercentage,
     customTip,
+    tipMode,
     setTipValue,
     setTotalValue
   );
@@ -41,7 +55,8 @@ const Home = () => {
     setTipValue(0);
     setTotalValue(0);
     setSelectedPercentage(0);
-    setCustomTip(0);
+    setCustomTip("");
+    setTipMode("");
   };
 
   return (
@@ -57,22 +72,11 @@ const Home = () => {
               placeholder={0}
               max={8}
               value={bill}
-              onChange={(e) =>
-                validInput(
-                  e,
-                  setBill,
-                  setErrorMessage("Bill must have only numbers, ex: 123.45.")
-                )
-              }
+              onChange={handleBillChange}
               icon={"/icon-dollar.svg"}
               alt={"Dollar Icon"}
             />
-            {errorMessage && (
-              <p style={{ color: "red", margin: ".50rem 0 0 0" }}>
-                {" "}
-                {errorMessage}{" "}
-              </p>
-            )}
+            {errors.bill && <div className="error-message">{errors.bill}</div>}
           </div>
           <div className="tip-percentage">
             <p>Select Tip %</p>
@@ -90,8 +94,19 @@ const Home = () => {
                 type="text"
                 placeholder="Custom"
                 className="tip-input"
+                value={customTip}
                 onChange={handleCustomTip}
+                maxLength={2}
               />
+              {tipMode && (
+                <div>
+                  {tipMode === "percentage" ? (
+                    <p>Tip % selected: {selectedPercentage}%</p>
+                  ) : (
+                    <p>Tip % selected: {customTip}%</p>
+                  )}
+                </div>
+              )}
             </div>
           </div>
           <div className="input-box">
@@ -102,12 +117,13 @@ const Home = () => {
               placeholder={0}
               max={2}
               value={people}
-              onChange={(e) =>
-                validInput(e, setPeople, setErrorMessage("Can't be zero."))
-              }
+              onChange={handlePeopleChange}
               icon={"/icon-person.svg"}
               alt={"Dollar Icon"}
             />
+            {errors.people && (
+              <div className="error-message">{errors.people}</div>
+            )}
           </div>
         </div>
         <div className="tip-container">
