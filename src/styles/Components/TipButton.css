@@ -20,7 +20,7 @@
   color: hsl(var(--neutral-very-dark-cyan));
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1024px) {
   .tip-button {
     padding: 1rem 0;
     width: 8.575rem;

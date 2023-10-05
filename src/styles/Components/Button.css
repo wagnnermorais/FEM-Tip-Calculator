@@ -15,7 +15,7 @@
   background: hsl(var(--neutral-very-light-grayish-cyan));
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1024px) {
   .button {
     width: 85%;
   }
