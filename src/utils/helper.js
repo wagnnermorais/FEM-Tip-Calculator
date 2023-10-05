@@ -1,26 +1,37 @@
-export const validInput = (e, setState) => {
+export const validInput = (e, setState, fieldName) => {
   const value = e.target.value;
+  const errors = {};
 
-  const numericValue = value.replace(/[^0-9.]/g, "");
+  if (value === "") {
+    errors[fieldName] = "Value can't be empty";
+    setState("");
+  } else {
+    const numericValue = value.replace(/[^0-9.]/g, "");
 
-  // if (value !== numericValue || value <= 0) {
+    if (numericValue <= 0) {
+      errors[fieldName] = "Can't be zero";
+      setState("");
+    } else if (value !== numericValue) {
+      errors[fieldName] = "Only numbers, ex: 1234.5";
+    } else {
+      setState(value);
+    }
+  }
 
-  // } else {
-  //   setState(value);
-  // }
+  return errors[fieldName] || null;
 };
 
 export const calculate = (
-  billValue,
-  peopleNumber,
-  tipValue,
-  setBillValue,
-  setTipValue
+  bill,
+  people,
+  tipPercentage,
+  tipValueFunction,
+  totalValueFunction
 ) => {
-  const total = billValue / peopleNumber;
-  const tipAmount = (total * tipValue) / 100;
+  const total = bill / people;
+  const tipAmount = (total * tipPercentage) / 100;
   const totalAmount = total + tipAmount;
 
-  setBillValue(totalAmount.toFixed(2));
-  setTipValue(tipAmount.toFixed(2));
+  tipValueFunction(tipAmount.toFixed(2));
+  totalValueFunction(totalAmount.toFixed(2));
 };
