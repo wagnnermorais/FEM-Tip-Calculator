@@ -6,34 +6,39 @@ const useCalculateTip = (
   people,
   selectedPercentage,
   customTip,
+  tipMode,
   setTipValue,
   setTotalValue
 ) => {
   useEffect(() => {
     const billAmount = parseFloat(bill);
     const numberOfPeople = parseFloat(people);
-    const customTipValue = parseFloat(customTip);
+    let tipValue = 0;
 
     if (!isNaN(billAmount) && !isNaN(numberOfPeople) && numberOfPeople > 0) {
-      if (customTip) {
-        calculate(
-          billAmount,
-          numberOfPeople,
-          customTipValue,
-          setTotalValue,
-          setTipValue
-        );
-      } else {
-        calculate(
-          billAmount,
-          numberOfPeople,
-          selectedPercentage,
-          setTotalValue,
-          setTipValue
-        );
+      if (tipMode === "percentage" && selectedPercentage > 0) {
+        tipValue = selectedPercentage;
+      } else if (tipMode === "custom" && customTip > 0) {
+        tipValue = customTip;
       }
+
+      calculate(
+        billAmount,
+        numberOfPeople,
+        tipValue,
+        setTipValue,
+        setTotalValue
+      );
     }
-  }, [bill, people, selectedPercentage, customTip, setTotalValue, setTipValue]);
+  }, [
+    bill,
+    people,
+    selectedPercentage,
+    customTip,
+    tipMode,
+    setTotalValue,
+    setTipValue,
+  ]);
 };
 
 export default useCalculateTip;
