@@ -11,8 +11,8 @@ import "../styles/Pages/Home.css";
 const Home = () => {
   const [bill, setBill] = useState("");
   const [people, setPeople] = useState("");
-  const [tipValue, setTipValue] = useState(0);
-  const [totalValue, setTotalValue] = useState(0);
+  const [tipValue, setTipValue] = useState("0.00");
+  const [totalValue, setTotalValue] = useState("0.00");
   const [selectedPercentage, setSelectedPercentage] = useState(0);
   const [customTip, setCustomTip] = useState("");
   const [tipMode, setTipMode] = useState("");
@@ -52,8 +52,8 @@ const Home = () => {
   const handleCleanForm = () => {
     setBill("");
     setPeople("");
-    setTipValue(0);
-    setTotalValue(0);
+    setTipValue("0.00");
+    setTotalValue("0.00");
     setSelectedPercentage(0);
     setCustomTip("");
     setTipMode("");
