@@ -8,7 +8,14 @@
   width: 100%;
   font-size: var(--input-fs);
   text-align: end;
-  border: 1px solid hsl(var(--primary-strong-cyan));
+  border: 1px solid #f6f6f6;
+  border-radius: 5px;
+  background: #f6f6f6;
+  transition: background-color 0.25s;
+}
+
+.input:hover {
+  background: #e8e6e6;
 }
 
 .input-icon {
