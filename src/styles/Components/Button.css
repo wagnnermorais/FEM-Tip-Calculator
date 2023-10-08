@@ -15,6 +15,19 @@
   background: hsl(var(--neutral-very-light-grayish-cyan));
 }
 
+.button-disabled {
+  padding: 1rem;
+  width: 80%;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  background: hsl(var(--neutral-dark-grayish-cyan));
+  color: hsl(var(--neutral-very-dark-cyan));
+  cursor: pointer;
+  transition: 0.25s;
+}
+
 @media screen and (max-width: 1024px) {
   .button {
     width: 85%;
